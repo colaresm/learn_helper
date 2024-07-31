@@ -1,2 +1,3 @@
 import basic_libs
-import plot_functions*
+from plot_functions import *
+
