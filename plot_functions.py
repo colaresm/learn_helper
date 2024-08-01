@@ -1,4 +1,4 @@
-from basic_libs import plt
+from basic_libs import *
 
 def plot_hist(data):
     plt.hist(data)
