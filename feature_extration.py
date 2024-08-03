@@ -22,7 +22,7 @@ def fine_tune_model(X_train, X_test, y_train, y_test, num_classes,base_model):
         horizontal_flip=True
     )
 
-    # Treinar o modelo
+    # Train the model
   #  model.fit(datagen.flow(X_train, y_train, batch_size=32),
    #           validation_data=(X_test, y_test),
     #          epochs=5)
@@ -41,4 +41,8 @@ def fine_tune_model(X_train, X_test, y_train, y_test, num_classes,base_model):
     X_train_features_flat = X_train_features.reshape(X_train_features.shape[0], -1)
     X_test_features_flat = X_test_features.reshape(X_test_features.shape[0], -1)
 
-    return X_train_features_flat, X_test_features_flat, y_train, y_test
+    #    return X_train_features_flat, X_test_features_flat, y_train, y_test
+    X=np.concatenate((X_train_features_flat, X_test_features_flat), axis=1)
+    y=np.concatenate((y_train, y_test), axis=1)
+    
+    return X, y
