@@ -4,3 +4,4 @@ from image_process import *
 from feature_extration import *
 from classifiers import *
 from results import *
+from statistical_tests import *
