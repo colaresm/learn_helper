@@ -1,2 +1,1 @@
-*.ipynb
-*.h5
+mobilenet_v2_weights.h5
