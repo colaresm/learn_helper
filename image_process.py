@@ -76,7 +76,7 @@ def apply_gamma(image, gamma_value=0.5047):
 def preprocess_image(image_path):
   image= cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
 
-  #image= cv2.resize(image, (224, 224)) 
+  image= cv2.resize(image, (224, 224)) 
 
   #image=enhance_retinal_imag(image)
 
