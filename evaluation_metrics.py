@@ -30,6 +30,18 @@ def calculateTestingTime(clf,X_test, y_test):
     testing_time = time.time() - start_time
     return testing_time
 
+def export_metric_to_statistical_analysis(accuracies,cnn,classifier):
+    accuracies_formated=[]
+
+    for acc in accuracies:
+       accuracies_formated.append(formatMetric(acc))
+
+    result={"extractor":cnn,"classifier":classifier,"accuracies":accuracies}
+    
+    df=pd.DataFrame(result)
+
+    df.to_csv(cnn+"_"+classifier+".csv")
+
 
 def buildResults(clf,X_train, X_test, y_train, y_test,best_params,classifier):
     training_times = []
@@ -55,7 +67,7 @@ def buildResults(clf,X_train, X_test, y_train, y_test,best_params,classifier):
 
         f1_scores.append(f1_score(y_test, clf.predict(X_test), average='macro'))
 
-
+    export_metric_to_statistical_analysis(accuracies,"cnn",classifier)
 
     results={
     "Classifier":classifier,
@@ -67,6 +79,7 @@ def buildResults(clf,X_train, X_test, y_train, y_test,best_params,classifier):
     "f1-score":formatMetric(f1_scores),"f1-score std":formatStd(f1_scores),
     "best params":best_params
     }
+
     return results
 
 def buildData(X_train_features, X_test_features, y_train, y_test):
