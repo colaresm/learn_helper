@@ -32,7 +32,7 @@ def fine_tune_model(X_train, X_test, y_train, y_test, num_classes,base_model):
 
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-    model.fit(datagen.flow(X_train, y_train, batch_size=16),validation_data=(X_test, y_test),epochs=2)
+    model.fit(datagen.flow(X_train, y_train, batch_size=16),validation_data=(X_test, y_test),epochs=5)
 
     feature_extractor = Model(inputs=model.input, outputs=base_model.output)
     X_train_features = feature_extractor.predict(X_train)
