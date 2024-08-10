@@ -1,7 +1,7 @@
 from basic_libs import *
 
 
-def fine_tune_model(X_train, X_test, y_train, y_test, num_classes,base_model):
+def fine_tune_model(X_train, X_test, y_train, y_test, num_classes,base_model,blocks):
     
     for layer in base_model.layers:
         layer.trainable = False
@@ -27,12 +27,12 @@ def fine_tune_model(X_train, X_test, y_train, y_test, num_classes,base_model):
    #           validation_data=(X_test, y_test),
     #          epochs=5)
 
-    for layer in model.layers[:2]:  
+    for layer in model.layers[:blocks]:  
         layer.trainable = True
 
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-    model.fit(datagen.flow(X_train, y_train, batch_size=16),validation_data=(X_test, y_test),epochs=5)
+    model.fit(datagen.flow(X_train, y_train, batch_size=16),validation_data=(X_test, y_test),epochs=3)
 
     feature_extractor = Model(inputs=model.input, outputs=base_model.output)
     X_train_features = feature_extractor.predict(X_train)
@@ -45,4 +45,7 @@ def fine_tune_model(X_train, X_test, y_train, y_test, num_classes,base_model):
   #  X=np.concatenate((X_train_features_flat, X_test_features_flat), axis=1)
    # y=np.concatenate((y_train, y_test), axis=1)
     
+
+    model.save('cnn_model.h5')
+
     return X_train_features_flat, X_test_features_flat, y_train, y_test
